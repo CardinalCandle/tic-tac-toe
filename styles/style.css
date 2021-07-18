@@ -1,34 +1,112 @@
 h1 {
     overflow-wrap: normal;
+text-align: center;    
+width: auto;
+font-size: 3vw;
+font-family: 'Courier New', Courier, monospace;
+color: #F4B41A
+}
+#contain {
+    margin: 0 auto;
+    background: rgba(169, 169, 169, 0);
+
+}
+body {
+    background: #143D59;
 }
 #gboard {
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    width: 100vh;
-    height: 35vw;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    background:rgba(184, 135, 11, 0);
+    width: 45%;
+    height: 50%;
+    padding: 100px;
+    
 }
 .box {
-    width: 100%;
-    height: 12vw;
-    text-align: center;
-    font-size:10vw;
-    overflow: auto;
-    border-width: 0px;
-    background: transparent;
+    background:unset;
+    color: #F4B41A;
+    height: 100%;
+    font-size: 30px;
 }
 .box:hover {
-    background: rgba(128, 255, 0, 0.233);
+    background:#F4B41A;
+    color:#143D59;
 }
-#box-4, #box-5, #box-6 {
+/* #box-4, #box-5, #box-6 {
     border-style: hidden;
     border-bottom: solid;
     border-top: solid;
-    border-color: tomato;
+    border-color: #F4B41A;
 
 }
 #box-2, #box-5, #box-8 {
     border-left: solid;
     border-right: solid;
-    border-color: tomato;
+    border-color: #F4B41A;
+}
+ */
+ #box-1 { 
+    border-style: hidden solid solid hidden;
+    border-color: #F4B41A
+}
+#box-2 {
+    border-style: hidden solid solid solid;
+    border-color: #F4B41A;
+
+}
+#box-3 {
+    border-style: hidden hidden solid solid;
+    border-color: #F4B41A;
+
+}
+#box-4 {
+    border-style: solid solid solid hidden;
+    border-color: #F4B41A;
+}
+#box-5 {
+    border-style: solid solid solid solid;
+    border-color: #F4B41A;
+}
+#box-6 {
+    border-style: solid hidden solid solid;
+    border-color: #F4B41A;
+}
+#box-7 {
+    border-style: solid solid hidden hidden;
+    border-color: #F4B41A;
+}
+#box-8 {
+    border-style: solid solid hidden solid;
+    border-color: #F4B41A;
+}
+#box-9 {
+    border-style: solid hidden hidden solid;
+    border-color: #F4B41A;
+}
+
+#btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 0 0%;
+    padding-bottom: 5%;
+}
+button {
+    background: #F4B41A;
+    padding: 10% 3w;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #F4B41A;
+    color: #143D59;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    font-weight: 900;
+}
+button:hover {
+    background: #143D59;
+    color: #F4B41A;
+    border-color: #F4B41A;
 }

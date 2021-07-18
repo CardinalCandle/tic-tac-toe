@@ -1,6 +1,5 @@
 const Player = (name, mark) => {
     const details = () => console.log(name +" " +mark);
-    
     return {name,mark,details};
 };
 const displayController = (() => {
@@ -40,7 +39,7 @@ const displayController = (() => {
         document.getElementById('gboard').remove()
         return;
     }
-    const addStart = () => {
+    const addStart = (p,c) => {
             document.getElementById('startbtn').addEventListener("click", () => {
                 if (gameBoard.board.includes("X") || gameBoard.board.includes("O")) {return}
                 else {
@@ -48,14 +47,16 @@ const displayController = (() => {
                 }
             })
             document.getElementById('rstbtn').addEventListener("click", () => {
-                    return gameBoard.reset();
-                
-            })
+                if (gameBoard.board.includes('') == false || gameFlow.checkWin('','') == true) {
+                    gameBoard.reset()
+                }
+                else {return}
+                })
 
             }
         const showWinner = (name) => {
             if (name == "Tie") {
-                document.getElementById('result').textContent = "It's a Tie"
+                document.getElementById('res').textContent = "It's a Tie"
                 return
             }
             else {
@@ -81,15 +82,24 @@ const gameBoard = (() => {
             return true;
         }
         else { 
-            if (p.name == "COM") {return false}
+            if (p.name == "COM") {
+                return false
+            }
             else {
             alert('Slot already taken, choose another.')}
             return false;
         }
     }
     const reset = () => {
-        board = ["","","","","","","","",""]
-        return
+        for (i = 0; i<9;i++){
+            console.log(i)
+            gameBoard.board[i] = ""
+            displayController.addGrid
+            document.getElementById('res').textContent =  ''
+        }
+        
+        
+        return gameFlow.start()
     }
         return {
             reset,
@@ -103,12 +113,18 @@ const playGame = (() => {
     const askName = () => {
             pname = prompt('Please input your GameTag :');
             pmark = prompt('Please input your mark : (X/O)');
-
+            if (pmark == 'X' | pmark == 'O'){
             const player = Player(pname, pmark);
             player.details()
             return player
-            //playGame.comName(player);
+        }
+        else {
+            alert("Wrong Mark! Please try again");
+                askName();
+        }
     }
+            //playGame.comName(player);
+    
     const comName = (p) => {
         if (p.mark == "X") {
                // console.log("pmark is "+p.mark + p)
@@ -132,10 +148,7 @@ const playGame = (() => {
                 askName();
         }
     }
-    const turn = (player, move,COM) => {
 
-        
-    }
     const comPlay = (p,c) => {
         let possibleMoves = []
         let count = 0
@@ -192,16 +205,18 @@ const gameFlow = (() => {
             ///console.log(p.name+' has made his move '+p.mark+' on '+move);
             gameBoard.add(p.mark,move,c)
             displayController.addGrid(p,c)
-            //if (checkWin(p,c) == true) {
-            //    return checkWin(p,c);
-            //}
-            //else {
+            if (checkWin(p,c) == true) {
+                return checkWin(p,c);
+            }
+            else {
             let cmove = playGame.comPlay(p,c)
             gameBoard.add(c.mark,cmove,c)    
             ///console.log(c.name+' has made his move '+c.mark+' on '+cmove);
             displayController.addGrid(p,c)
-            return
-       // }
+            if (checkWin(p,c) == true) {
+                return checkWin(p,c);
+            }
+        }
         }
         else {
             displayController.addGrid(p,c)
@@ -221,46 +236,53 @@ const gameFlow = (() => {
                 if (p.mark == "X") {
                     console.log('You Win')
                     displayController.removeListeners();
-                    return displayController.showWinner(p.name)
+                    displayController.showWinner(p.name)
+                    return true
                 }
                 
                 else if (c.mark == "X") {
                     console.log('You Lose');
                     displayController.removeListeners();
-                    return displayController.showWinner(c.name)
+                    displayController.showWinner(c.name)
+                    return true
                 }
-                else {}
-        }
+                else {return true}
+            }
         else if (        
-        b[6]+b[7]+b[8] == "OOO" ||
-        b[0]+b[1]+b[2] == "OOO" ||
-        b[3]+b[4]+b[5] == "OOO" ||
-        b[0]+b[3]+[6] == "OOO" ||
-        b[1]+b[4]+[7] == "OOO" ||
-        b[2]+b[5]+[8] == "OOO" ||
-        b[0]+b[4]+[8] == "OOO" ||
-        b[2]+b[4]+[6] == "OOO" ) {
-            if (p.mark == "O") {
-        console.log('You Win');
-        displayController.removeListeners()
-        return displayController.showWinner(p.name)
-                }
-        else if (c.mark == "O") {
-        console.log('You Lose');
-        displayController.removeListeners()
-        return displayController.showWinner(c.name)
+            b[6]+b[7]+b[8] == "OOO" ||
+            b[0]+b[1]+b[2] == "OOO" ||
+            b[3]+b[4]+b[5] == "OOO" ||
+            b[0]+b[3]+b[6] == "OOO" ||
+            b[1]+b[4]+b[7] == "OOO" ||
+            b[2]+b[5]+b[8] == "OOO" ||
+            b[0]+b[4]+b[8] == "OOO" ||
+            b[2]+b[4]+b[6] == "OOO" ) {
+                if (p.mark == "O") {
+            console.log('You Win');
+            displayController.removeListeners()
+            displayController.showWinner(p.name)
+            return true
+                    }
+            else if (c.mark == "O") {
+            console.log('You Lose');
+            displayController.removeListeners()
+            displayController.showWinner(c.name)
+            return true
+            }
+            else {return true}
         }
-        else {}
-    }
-    else if (gameBoard.board.includes('') == false) {
-        console.log("It's a tie");
-        displayController.removeListeners()
-        return displayController.showWinner("Tie")
-    }
-    else {return false}
-        
-    }
+        else if (gameBoard.board.includes('') == false) {
+            console.log("It's a tie");
+            displayController.removeListeners()
+            displayController.showWinner("Tie")
+            return true
+        }
+        else {
+            return false
+        }
+        }
+         
     return {start,turn,checkWin}
-    })()
+})()
 
 displayController.addStart()

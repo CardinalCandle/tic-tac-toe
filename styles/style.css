@@ -1,7 +1,7 @@
-h1 {
+h1, #res {
     overflow-wrap: normal;
 text-align: center;    
-width: auto;
+width:32em;
 font-size: 3vw;
 font-family: 'Courier New', Courier, monospace;
 color: #F4B41A
@@ -17,12 +17,12 @@ body {
 #gboard {
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(3, 20%);
+    grid-template-rows: repeat(3, 20%);
     background:rgba(184, 135, 11, 0);
-    width: 45%;
+    width: 50%;
     height: 50%;
-    padding: 100px;
+    padding: 0 15% 0 35%;
     
 }
 .box {
@@ -34,6 +34,8 @@ body {
 .box:hover {
     background:#F4B41A;
     color:#143D59;
+    border-radius: 50%;
+    transform: scale(1.43);
 }
 /* #box-4, #box-5, #box-6 {
     border-style: hidden;
@@ -98,7 +100,7 @@ button {
     background: #F4B41A;
     padding: 10% 3w;
     border-style: solid;
-    border-width: 5px;
+    border-width: 1%;
     border-color: #F4B41A;
     color: #143D59;
     font-family: 'Courier New', Courier, monospace;
@@ -109,4 +111,6 @@ button:hover {
     background: #143D59;
     color: #F4B41A;
     border-color: #F4B41A;
+    border-width: 1%;
+
 }
